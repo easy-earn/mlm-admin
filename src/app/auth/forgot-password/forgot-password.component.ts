@@ -43,7 +43,6 @@ export class ForgotPasswordComponent implements OnInit {
   getEmailToRecoverPassword() {
     if (this.form?.email) {
       this._authService.recoverPassword(this.form?.email).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-        console.log('response', response);
         if (response && response?.message) {
           this.isInitialEmailSent = true;
           this._snackbarService.showSuccess(response?.message)
@@ -59,7 +58,6 @@ export class ForgotPasswordComponent implements OnInit {
 
   resetPassword() {
     try {
-      console.log('this.form', this.form);
       const isValid: any = validator(this.form);
       if (isValid) {
         // Signup api cal
@@ -67,7 +65,6 @@ export class ForgotPasswordComponent implements OnInit {
         let body = Object.assign({}, this.form);
         delete body['cpassword'];
         this._authService.resetPassword(this.form).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-          console.log('result', response);
           if (response && response?.message) {
             this._snackbarService.showSuccess(response?.message)
             this.router.navigate(["/auth/login"]);
