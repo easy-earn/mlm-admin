@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { WithdrawRequestComponent } from './withdraw-request/withdraw-request.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { TransactionComponent } from './transaction/transaction.component';
     DashboardComponent,
     HomeComponent,
     ProfileComponent,
-    TransactionComponent
+    TransactionComponent,
+    WithdrawRequestComponent
   ],
   imports: [
     CommonModule,

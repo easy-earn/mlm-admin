@@ -56,7 +56,6 @@ export class SignupComponent implements OnInit {
 
   signup() {
     try {
-      console.log('this.form', this.form);
       const isValid: any = validator(this.form);
       console.log(isValid, validator.errors);
       if (isValid) {
@@ -66,7 +65,6 @@ export class SignupComponent implements OnInit {
         let body = Object.assign({}, this.form);
         delete body['cpassword'];
         this.authService.signup(this.form).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-          console.log('result', response);
           if (response) {
             const { result } = response;
             if (result) {
@@ -100,7 +98,6 @@ export class SignupComponent implements OnInit {
     this.authService.resendOTP(this.form.email).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       if (response) {
         const { message } = response;
-        console.log('result', message);
         this._snackbarService.showInfo(message);
       }
       this.loader.close();
@@ -117,7 +114,6 @@ export class SignupComponent implements OnInit {
       this.authService.verifyOTP(this.form.email, this.verifyForm.otp).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
         if (response) {
           const { message } = response;
-          console.log('result', message);
           this.loader.close();
           if (this.form.package && this.form.package.plan_id) {
             this.router.navigate([`/dashboard/plans?planId=${this.form.package.plan_id}`]);

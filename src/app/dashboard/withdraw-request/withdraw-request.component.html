@@ -1,0 +1,99 @@
+<div class="lg:p-5 sm:p-3">
+  <mat-card class="white-card px-[0px] pb-0 overflow-hidden custom-card">
+    <mat-card-header class="flex items-center justify-between px-[10px] pb-[15px]">
+      <div mat-card-title class="mb-0">WithDraw Requests</div>
+    </mat-card-header>
+
+    <mat-card-content class="mb-0 table-height">
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" class="w-full white-table custom-table">
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Email</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
+              <ng-container *ngTemplateOutlet="cell; context: { data: user?.email }"></ng-container>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="upi">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> UPI</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
+              <ng-container *ngTemplateOutlet="cell; context: { data: user?.transaction?.upi }"></ng-container>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="utr">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> UTR (Ref. Number)</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
+              <ng-container *ngTemplateOutlet="cell; context: { data: user?.transaction?.utr }"></ng-container>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="account_holder_name">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Account Holder Name </th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap	">
+              <ng-container *ngTemplateOutlet="cell; context: { data: user?.account_holder_name }"></ng-container>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="account_number">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> A/C Number
+            <th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
+              <ng-container *ngTemplateOutlet="cell; context: { data: user?.account_number }"></ng-container>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ifsc_code">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> IFSC Code
+            <th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
+              <ng-container *ngTemplateOutlet="cell; context: { data: user?.ifsc_code }"></ng-container>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="account_balance">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Balance
+            <th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
+              <!-- <ng-container *ngTemplateOutlet="cell; context: { data: user?.account_balance }"></ng-container> -->
+
+              <span class="text-bold text-lg" *ngIf="user?.account_balance">₹ {{user?.account_balance}} </span>
+              <span *ngIf="!user?.account_balance"> - </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions" stickyEnd="true">
+            <th mat-header-cell *matHeaderCellDef class="w-[110px] px-[10px] whitespace-nowrap">Withdraw</th>
+            <td mat-cell *matCellDef="let user" class="w-[110px] px-[10px] whitespace-nowrap text-center">
+              <!-- *ngIf="user.account_balance >= 7000" -->
+              <button mat-flat-button color="primary"
+                class="text-white min-h-0 min-w-0 h-[30px] my-[10px] flex items-center justify-center"
+                (click)="withdrawAmount(user)">
+                Pay
+              </button>
+            </td>
+          </ng-container>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+              No data found.
+            </td>
+          </tr>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="compact-header"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="compact-cell-row"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+
+    <mat-card-footer class="m-0  rounded-b-sm overflow-hidden bg-white text-black">
+      <mat-paginator class="bg-white white-paginator" [disabled]="isLoading" [length]="pagination?.length"
+        [pageIndex]="pagination?.page" [pageSize]="pagination?.size" [pageSizeOptions]="[1,5, 10, 25, 50, 100, 250]"
+        [showFirstLastButtons]="true" (page)="pageChange($event)"></mat-paginator>
+    </mat-card-footer>
+  </mat-card>
+</div>
+
+
+<ng-template #cell let-data="data">
+  <span *ngIf="data"> {{data}} </span>
+  <span *ngIf="!data"> - </span>
+</ng-template>

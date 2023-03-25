@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin(form: any) {
-    console.log("login", form);
     const isValid: any = validator(this.form);
     if (isValid) {
       this.loader.open();

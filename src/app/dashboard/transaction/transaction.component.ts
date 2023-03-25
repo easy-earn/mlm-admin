@@ -61,7 +61,6 @@ export class TransactionComponent implements OnInit {
   getTransactions(page: any = 0, size: any = 25, sort: any = null, direction: any = 'asc', filter: any = null) {
     this.loader.open();
     this.userService.getTransactions(page, size, sort, direction, filter).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-      console.log('response', response);
       if (response) {
         const { result, count } = response;
         count ? this.pagination.length = count : null;
@@ -73,7 +72,6 @@ export class TransactionComponent implements OnInit {
   }
 
   verifyTransaction(tr: any) {
-    console.log('tr', tr);
     const confirmation = this._confirmationService.open({
       title: 'Confirm Payment',
       message:
@@ -102,12 +100,11 @@ export class TransactionComponent implements OnInit {
       if (response == 'confirmed') {
         this.loader.open();
         this.userService.verifyTransaction(tr.usertransaction_id).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-          console.log('response', response);
           if (response) {
+            this.loader.close();
             this.getTransactions(this.pagination.page, this.pagination.size, this.sortObj?.active, this.sortObj?.direction);
             this.snackbarService.showSuccess("Transaction Verified Successfully.")
           }
-          this.loader.close();
         })
       }
     });

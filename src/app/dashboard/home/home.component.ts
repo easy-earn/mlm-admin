@@ -62,7 +62,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   getAllUsers(page: any = 0, size: any = 25, sort: any = null, direction: any = 'asc', filter: any = null) {
     this.loader.open();
     this.userService.getUsers(page, size, sort, direction, filter).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-      console.log('response', response);
       if (response) {
         const { result, count } = response;
         count ? this.pagination.length = count : null;

@@ -48,4 +48,9 @@ export class UserService {
   verifyTransaction(transactionId: string) {
     return this._httpClient.post<ApiResponse<any>>(`${api}/admin/verify-user-purchase`, { transaction_id: transactionId }).pipe(catchError(error => of(null)))
   }
+
+
+  withdrawBalance(user_id: string) {
+    return this._httpClient.post<ApiResponse<any>>(`${api}/admin/withdraw-balance`, { user_id })
+  }
 }
