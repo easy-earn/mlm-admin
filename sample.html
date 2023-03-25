@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Three.js Scene with Modal</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/three-orbitcontrols"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/three/examples/js/controls/OrbitControls.js"></script>
+
+  <script>
+    // Set up the scene
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+    // Set up the renderer
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Set up the lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0xffffff, 0.5);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    // Set up the cube
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    // Set up the OrbitControls
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    renderer.render(scene, camera);
+
+    // Animate the cube
+    // function animate() {
+    //   requestAnimationFrame(animate);
+    //   cube.rotation.x += 0.01;
+    //   cube.rotation.y += 0.01;
+    //   renderer.render(scene, camera);
+    // }
+    // animate();
+
+    // Set up the modal
+    const modal = document.createElement('div');
+    modal.style.position = 'absolute';
+    modal.style.top = '50%';
+    modal.style.left = '50%';
+    modal.style.transform = 'translate(-50%, -50%)';
+    modal.style.backgroundColor = '#ffffff';
+    modal.style.padding = '20px';
+    modal.style.display = 'none';
+    modal.innerHTML = '<h2>Sample Modal</h2><p>This is a sample modal.</p><button onclick="closeModal()">Close</button>';
+    document.body.appendChild(modal);
+
+    // Open the modal when clicking on the cube
+    function openModal() {
+      modal.style.display = 'block';
+    }
+
+    // Close the modal
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    // Add a click event listener to the cube
+    cube.addEventListener('click', openModal);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+@use '@angular/material' as mat;
+
+// define a real custom palette (using http://mcg.mbitson.com)
+$mlm-accent: (
+  50: #ffffff,
+  100: #dde6f3,
+  200: #b4c9e4,
+  300: #7fa3d1,
+  400: #6992c9,
+  500: #5282c1,
+  600: #4072b4,
+  700: #38649d,
+  800: #305687,
+  900: #284770,
+  A100: #ffffff,
+  A200: #dde6f3,
+  A400: #6992c9,
+  A700: #38649d,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+$mlm-primary: (
+  50 : #f9f4ea,
+  100 : #f0e3cc,
+  200 : #e6d1aa,
+  300 : #dbbf87,
+  400 : #d4b16e,
+  500 : #cca354,
+  600 : #c79b4d,
+  700 : #c09143,
+  800 : #b9883a,
+  900 : #ad7729,
+  A100 : #fff8ee,
+  A200 : #ffe1bb,
+  A400 : #ffcb88,
+  A700 : #ffc06e,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$mlm-portal-frontend-primary: mat.define-palette($mlm-primary);
+$mlm-portal-frontend-accent: mat.define-palette($mlm-accent, A200, A100, A400);
+
+$mlm-portal-frontend-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$mlm-portal-frontend-theme: mat.define-dark-theme((color: (primary: $mlm-portal-frontend-primary,
+        accent: $mlm-portal-frontend-accent,
+        warn: $mlm-portal-frontend-warn,
+      )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($mlm-portal-frontend-theme);
+
+/* You can add global styles to this file, and also import other style files */
+// @import url("src/assets/css/theme.scss");
+// @import '@angular/material/prebuilt-themes/deeppurple-amber.css';

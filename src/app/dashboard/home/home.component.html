@@ -1,0 +1,112 @@
+<div class="lg:p-5 sm:p-3">
+  <mat-card class="white-card px-[0px] pb-0 overflow-hidden custom-card">
+    <mat-card-header class="flex items-center justify-between px-[10px] pb-[15px]">
+      <div mat-card-title class="mb-0">Users</div>
+      <!-- <button mat-raised-button color="primary" class="text-white flex items-center" (click)="openDialog()">
+        <mat-icon>add</mat-icon>
+        <span>Create Account</span>
+      </button> -->
+    </mat-card-header>
+
+    <mat-card-content class="mb-0 table-height">
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" class="w-full white-table custom-table">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Full Name </th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap	"> {{user.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Email</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap	"> {{user.email}} </td>
+          </ng-container>
+          <ng-container matColumnDef="phone_number">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Phone Number</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap	"> {{user.phone_number}} </td>
+          </ng-container>
+          <ng-container matColumnDef="is_verified">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Email Verified</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap	">
+              <span *ngIf="user.is_verified == true"
+                class="bg-green-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full  text-green-600">Verified</span>
+              <span *ngIf="user.is_verified == false"
+                class="bg-gray-200 text-gray-400 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full ">Not
+                Verified</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="transaction_verified">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Transaction Verified</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
+              <span *ngIf="user?.transaction?.is_verified == true"
+                class="bg-green-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full  text-green-600">Verified</span>
+              <span *ngIf="user?.transaction?.is_verified == false"
+                class="bg-red-200 text-red-400 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full ">Not
+                Verified</span>
+              <span *ngIf="!user?.transaction?.is_verified"
+                class="bg-gray-200 text-gray-400 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">---</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="account_balance">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Balance</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
+              ₹ {{user.account_balance}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="plan_amount">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Plan</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
+              <span *ngIf="user?.transaction?.plan?.amount">₹ {{user?.transaction?.plan?.amount}}</span>
+              <span *ngIf="!user?.transaction?.plan?.amount">-</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Status</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap	">
+              <span *ngIf="user.status == 1"
+                class="bg-green-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full  text-green-600">Valid</span>
+              <span *ngIf="user.status == 0"
+                class="bg-red-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full  text-red-600">Blocked</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="referral_code">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Referral Code</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap	"> {{user.referral_code}} </td>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="actions" stickyEnd="true">
+            <th mat-header-cell *matHeaderCellDef class="w-[110px] px-[10px] whitespace-nowrap	"></th>
+            <td mat-cell *matCellDef="let account" class="w-[110px] px-[10px] whitespace-nowrap">
+              <button mat-icon-button (click)="editAccount(account)">
+                <mat-icon class="text-primary">edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteAccount(account)">
+                <mat-icon class="text-red-600">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container> -->
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+              No data found.
+            </td>
+          </tr>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="compact-header"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="compact-cell-row"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+
+    <mat-card-footer class="m-0  rounded-b-sm overflow-hidden bg-white text-black">
+      <!-- <mat-paginator class="bg-white white-paginator" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons>
+      </mat-paginator> -->
+      <mat-paginator class="bg-white white-paginator" [disabled]="isLoading" [length]="pagination?.length"
+        [pageIndex]="pagination?.page" [pageSize]="pagination?.size" [pageSizeOptions]="[1,5, 10, 25, 50, 100, 250]"
+        [showFirstLastButtons]="true" (page)="pageChange($event)"></mat-paginator>
+    </mat-card-footer>
+  </mat-card>
+</div>

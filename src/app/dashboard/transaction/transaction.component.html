@@ -1,0 +1,109 @@
+<div class="lg:p-5 sm:p-3">
+    <mat-card class="white-card px-[0px] pb-0 overflow-hidden custom-card">
+        <mat-card-header class="flex items-center justify-between px-[10px] pb-[15px]">
+            <div mat-card-title class="mb-0">Transactions</div>
+            <!-- <button mat-raised-button color="primary" class="text-white flex items-center" (click)="openDialog()">
+        <mat-icon>add</mat-icon>
+        <span>Create Account</span>
+      </button> -->
+        </mat-card-header>
+
+        <mat-card-content class="mb-0 table-height">
+            <div class="table-container">
+                <table mat-table [dataSource]="dataSource" class="w-full white-table custom-table">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Full Name </th>
+                        <td mat-cell *matCellDef="let trans" class="whitespace-nowrap	">
+                            <span *ngIf="trans?.user?.name"> {{trans?.user?.name}} </span>
+                            <span *ngIf="!trans?.user?.name"> - </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Email</th>
+                        <td mat-cell *matCellDef="let trans" class="whitespace-nowrap">
+                            <span *ngIf="trans?.user?.email"> {{trans?.user?.email}} </span>
+                            <span *ngIf="!trans?.user?.email"> - </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="upi">
+                        <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> UPI</th>
+                        <td mat-cell *matCellDef="let trans" class="whitespace-nowrap"> {{trans.upi}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="utr">
+                        <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> UTR (Ref. Number)</th>
+                        <td mat-cell *matCellDef="let trans" class="whitespace-nowrap"> {{trans.utr}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="plan_amount">
+                        <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Amount (+18%) </th>
+                        <td mat-cell *matCellDef="let trans" class="whitespace-nowrap">
+                            <span *ngIf="trans?.plan?.amount">₹ {{trans?.plan?.amount * 1.18}}</span>
+                            <span *ngIf="!trans?.plan?.amount">-</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="plan_amount_without">
+                        <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap">Plan Amount </th>
+                        <td mat-cell *matCellDef="let trans" class="whitespace-nowrap">
+                            <span *ngIf="trans?.plan?.amount">₹ {{trans?.plan?.amount}}</span>
+                            <span *ngIf="!trans?.plan?.amount">-</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="transaction_verified">
+                        <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Transaction Verified </th>
+                        <td mat-cell *matCellDef="let trans" class="whitespace-nowrap">
+                            <span *ngIf="trans?.is_verified == true"
+                                class="bg-green-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full  text-green-600">Verified</span>
+                            <span *ngIf="trans?.is_verified == false"
+                                class="bg-red-200 text-red-400 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full ">Not
+                                Verified</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Status</th>
+                        <td mat-cell *matCellDef="let trans" class="whitespace-nowrap	">
+                            <span *ngIf="trans?.user?.status && trans?.user?.status == 1"
+                                class="bg-green-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full  text-green-600">Valid</span>
+                            <span *ngIf="trans?.user?.status && trans?.user?.status== 0"
+                                class="bg-red-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full  text-red-600">Blocked</span>
+                            <span *ngIf="!trans?.user?.status"
+                                class="bg-grey-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full  text-grey-600">-</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions" stickyEnd="true">
+                        <th mat-header-cell *matHeaderCellDef class="w-[110px] px-[10px] whitespace-nowrap">Verify
+                            (Manually)</th>
+                        <td mat-cell *matCellDef="let transaction"
+                            class="w-[110px] px-[10px] whitespace-nowrap text-center">
+                            <button *ngIf="!transaction.is_verified" mat-icon-button
+                                (click)="verifyTransaction(transaction)">
+                                <mat-icon class="text-primary">check</mat-icon>
+                            </button>
+                            <!-- <button mat-icon-button (click)="declineTransaction(account)">
+                                <mat-icon class="text-red-600">close</mat-icon>
+                            </button> -->
+                        </td>
+                    </ng-container>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                            No data found.
+                        </td>
+                    </tr>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="compact-header"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="compact-cell-row"></tr>
+                </table>
+            </div>
+        </mat-card-content>
+
+        <mat-card-footer class="m-0  rounded-b-sm overflow-hidden bg-white text-black">
+            <mat-paginator class="bg-white white-paginator" [disabled]="isLoading" [length]="pagination?.length"
+                [pageIndex]="pagination?.page" [pageSize]="pagination?.size"
+                [pageSizeOptions]="[1,5, 10, 25, 50, 100, 250]" [showFirstLastButtons]="true"
+                (page)="pageChange($event)"></mat-paginator>
+        </mat-card-footer>
+    </mat-card>
+</div>

@@ -1,0 +1,40 @@
+.sidebar-container {
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: transparent;
+}
+
+mat-sidenav {
+  width: 200px;
+  background-color: #2b2b2b;
+}
+
+
+.side-nav-link {
+  border-right: 5px solid transparent;
+}
+
+.router-link-active {
+  background-color: var(--mlm-primary) !important;
+  border-right-color: white;
+}
+
+.profile-button {
+  background-color: transparent;
+  border: none;
+}
+
+.profile-icon {
+  color: white;
+}
+
+mat-menu-item:hover {
+  background-color: #efefef;
+}
+
+@media only screen and (max-width: 600px) {
+  .sidebar-container {
+    width: 100%;
+    height: calc(100vh - 56px);
+  }
+}

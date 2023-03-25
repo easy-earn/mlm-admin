@@ -1,0 +1,72 @@
+<div class="full-wh">
+  <!-- STAR ANIMATION -->
+  <div class="bg-animation">
+    <div id='stars'></div>
+    <div id='stars2'></div>
+    <div id='stars3'></div>
+    <div id='stars4'></div>
+  </div><!-- / STAR ANIMATION -->
+</div>
+<div class="page-wrapper">
+
+  <!-- account section start -->
+  <div class="account-section bg_img" data-background="assets/images/bg/bg-5.jpg">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-7">
+          <div class="account-card">
+            <div class="account-card__header bg_img overlay--one"
+              [ngStyle]="{'background-image': 'url(./assets/images/bg/login-bg.png)'}">
+              <h2 class="section-title">Welcome to <span class="base--color">{{constant.appName}}</span> Admin</h2>
+              <p>Grow your business and track Your earnings. Connect your customers with us and earn more.</p>
+            </div>
+            <div class="account-card__body">
+              <h3 class="text-center">Login</h3>
+              <form class="mt-4">
+                <div class="form-group">
+                  <label>User Name</label>
+                  <input type="text" class="form-control" name="mlm-login-email" placeholder="Enter user name"
+                    [(ngModel)]="form.email" [class.border-red-500]="errors['/email']">
+                  <ng-container *ngTemplateOutlet="errorTemplate; context: { key: '/email' }"></ng-container>
+                </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" class="form-control" name="mlm-login-password" placeholder="Enter password"
+                    [(ngModel)]="form.password" [class.border-red-500]="errors['/password']">
+                  <ng-container *ngTemplateOutlet="errorTemplate; context: { key: '/password' }"></ng-container>
+                </div>
+                <div class="form-group flex items-center">
+                  <span class="text-sm cursor-pointer ml-[3px]">
+                    Forgot Password?
+                    <a [routerLink]="['/auth/forgot-password']" class="text-primary font-bold">
+                      Recover password</a>
+                  </span>
+                </div>
+                <div class="form-group flex items-center justify-between mt-[35px]">
+                  <button mat-flat-button color="primary" class="px-[35px] py-[7px]" (click)="doLogin(form)">
+                    Login Now
+                  </button>
+                  <p class="text-md flex items-center">
+                    <span class="mr-[3px]">Haven't an account? </span> <a [routerLink]="['/auth/signup']"
+                      class="base--color">
+                      Sign Up</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- account section end -->
+
+</div> <!-- page-wrapper end -->
+
+
+
+<ng-template #errorTemplate let-key="key">
+  <div class="text-red-500 text-[10px] absolute" *ngIf="errors && errors[key]">
+    {{ errors[key] }}
+  </div>
+</ng-template>

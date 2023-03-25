@@ -1,0 +1,121 @@
+<div class="full-wh">
+  <!-- STAR ANIMATION -->
+  <div class="bg-animation">
+    <div id='stars'></div>
+    <div id='stars2'></div>
+    <div id='stars3'></div>
+    <div id='stars4'></div>
+  </div><!-- / STAR ANIMATION -->
+</div>
+<div class="page-wrapper">
+
+  <!-- account section start -->
+  <div class="account-section bg_img" data-background="assets/images/bg/bg-5.jpg" id="Signup" [hidden]="isSignupDone">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-7">
+          <div class="account-card">
+            <div class="account-card__header bg_img overlay--one"
+              [ngStyle]="{'background-image': 'url(./assets/images/bg/login-bg.png)'}">
+              <h2 class="section-title">Welcome to <span class="base--color">{{constant.appName}}</span> Admin</h2>
+              <p>Grow your business and track Your earnings. Connect your customers with us and earn more.</p>
+            </div>
+            <div class="account-card__body">
+              <h3 class="text-center">Create an Account</h3>
+              <form class="mt-4" #f="ngForm">
+                <div class="form-group relative">
+                  <label>Full Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="Enter full name" name="username"
+                    [(ngModel)]="form.name" [class.border-red-500]="errors['/name']">
+                  <ng-container *ngTemplateOutlet="errorTemplate; context: { key: '/name' }"></ng-container>
+                </div>
+                <div class="form-group relative">
+                  <label>Email Address</label>
+                  <input type="email" class="form-control" id="mlm-email" placeholder="Enter email address"
+                    name="mlm-email" [(ngModel)]="form.email" [class.border-red-500]="errors['/email']">
+                  <ng-container *ngTemplateOutlet="errorTemplate; context: { key: '/email' }"></ng-container>
+                </div>
+                <div class="form-group relative">
+                  <label>Password</label>
+                  <input type="password" class="form-control" id="mlm-password" placeholder="Enter password"
+                    name="mpm-pwd" [(ngModel)]="form.password" [class.border-red-500]="errors['/password']">
+                  <ng-container *ngTemplateOutlet="errorTemplate; context: { key: '/password' }"></ng-container>
+                </div>
+                <div class="form-group">
+                  <label>Confirm Password</label>
+                  <input type="password" class="form-control" name="cpwd" placeholder="Enter confirm password"
+                    [(ngModel)]="form.cpassword" [class.border-red-500]="errors['/cpassword']">
+                  <ng-container *ngTemplateOutlet="errorTemplate; context: { key: '/cpassword' }"></ng-container>
+                </div>
+                <div class="form-group">
+                  <label>Sec. Code</label>
+                  <input type="password" class="form-control" name="cpwd" placeholder="Enter sec. code"
+                    [(ngModel)]="form.sec_code" [class.border-red-500]="errors['/sec_code']">
+                  <ng-container *ngTemplateOutlet="errorTemplate; context: { key: '/sec_code' }"></ng-container>
+                </div>
+                <div class="form-group flex items-center justify-between mt-[35px]">
+                  <button mat-flat-button color="primary" class="px-[35px] py-[7px]" (click)="signup()">SignUp
+                    Now</button>
+                  <p class="text-md">Haven't an account? <a [routerLink]="['/auth/login']" class="base--color">Login</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- account section end -->
+
+  <!-- Verify OTP section -->
+  <div class="account-section bg_img" data-background="assets/images/bg/bg-5.jpg" id="Verify-OTP" *ngIf="isSignupDone">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-7">
+          <div class="account-card">
+            <div class="account-card__header bg_img overlay--one"
+              [ngStyle]="{'background-image': 'url(./assets/images/bg/login-bg.png)'}">
+              <h2 class="section-title">Welcome to <span class="base--color">{{constant.appName}}</span> Admin</h2>
+              <p>we have sent you an OTP (One-Time Password) via email. Please check your email inbox, including the
+                spam folder, to retrieve the OTP.</p>
+            </div>
+            <div class="account-card__body">
+              <h3 class="text-center">Verify an Account</h3>
+              <form class="mt-4" #f="ngForm">
+                <div class="form-group relative">
+                  <label>One Time Password (OTP)</label>
+                  <input type="text" class="form-control" id="name" placeholder="Enter one time password" name="otp"
+                    [(ngModel)]="verifyForm.otp" [class.border-red-500]="errors['/otp']">
+                  <ng-container *ngTemplateOutlet="errorTemplate; context: { key: '/otp' }"></ng-container>
+                </div>
+                <div class="form-group mb-[35px] relative" id="is_terms_accepted">
+                  <div class="flex items-center">
+                    <span class="text-sm cursor-pointer ml-[3px]">
+                      Don't get OTP? <a class="text-primary font-bold" (click)="resendOTP()">Resend OTP</a>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group flex items-center justify-between mt-[35px]">
+                  <button mat-flat-button color="primary" class="px-[35px] py-[7px]" (click)="verifyOTP()">Verify
+                    Account</button>
+                  <p class="text-md">Haven't an account? <a [routerLink]="['/auth/login']" class="base--color">Login</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Verify OTP Section End -->
+
+</div> <!-- page-wrapper end -->
+
+
+<ng-template #errorTemplate let-key="key">
+  <div class="text-red-500 text-[10px] absolute" *ngIf="errors && errors[key]">
+    {{ errors[key] }}
+  </div>
+</ng-template>
