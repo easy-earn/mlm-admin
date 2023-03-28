@@ -29,6 +29,14 @@ export class UserService {
     return this._httpClient.get<ApiResponse<any>>(`${api}/admin/users`, { params }).pipe(catchError(error => of(null)))
   }
 
+  getRewardedUser(maxCount: any = null) {
+    const params: any = {};
+    if (maxCount) {
+      params[`childCount`] = maxCount;
+    }
+    return this._httpClient.get<ApiResponse<any>>(`${api}/admin/rewarded-users`, { params }).pipe(catchError(error => of(null)))
+  }
+
   getTransactions(page: number = 0, size: number = 25, sort: any = null, direction: any = null, filter: any = null) {
     const offset = this.utils.getOffset(page, size);
     const params: any = {

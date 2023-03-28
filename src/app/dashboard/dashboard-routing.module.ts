@@ -4,6 +4,7 @@ import { AuthGuard } from '../shared/guards/auth.guard';
 import { DashboardComponent } from './dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RewardedUsersComponent } from './rewarded-users/rewarded-users.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { WithdrawRequestComponent } from './withdraw-request/withdraw-request.component';
 
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: "withdraw-request",
         component: WithdrawRequestComponent
+      },
+      {
+        path: "rewarded-users",
+        component: RewardedUsersComponent
       },
       {
         path: "profile",
