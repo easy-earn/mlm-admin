@@ -42,6 +42,12 @@
     border-top: none;
   }
 
+  &.h-\[30px\] {
+    .mat-form-field-infix {
+      padding: 6px 0px;
+    }
+  }
+
   &.mat-form-field-appearance-outline .mat-select-arrow-wrapper {
     transform: none;
   }
@@ -84,6 +90,14 @@
       mat-label {
         color: var(--mlm-primary-on);
       }
+    }
+
+    .mat-select-value {
+      color: var(--mlm-primary-on);
+    }
+
+    .mat-select-placeholder {
+      color: var(--mlm-slate-400);
     }
   }
 

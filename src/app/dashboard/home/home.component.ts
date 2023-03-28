@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   _unsubscribeAll: Subject<any> = new Subject();
 
-  displayedColumns: string[] = ['name', 'email', 'phone_number', 'referral_code', 'is_verified', 'transaction_verified', 'account_balance', 'plan_amount', 'status', 'actions'];
+  displayedColumns: string[] = ['name', 'email', 'phone_number', 'referral_code', 'account_balance', 'plan_amount', 'is_verified', 'transaction_verified', 'status', 'child_count', 'actions'];
   isLoading: boolean = false;
   pagination: any = {
     length: 0,
@@ -28,10 +28,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<any>();
   sortObj: any;
   filterObj = {
-    field: "",
-    operator: "",
-    value: ""
+    field: null,
+    operator: null,
+    value: null
   }
+  filterTimeoutRef: any = null;
+
+  searchFields = ['name', 'email', 'phone_number', 'account_holder_name', "account_number", "child_count"];
+  operators = [
+    { value: 'like', label: 'Contain' },
+    { value: 'eq', label: 'Is' },
+    { value: 'lt', label: 'Less than' },
+    { value: 'lte', label: 'Less than or equal to' },
+    { value: 'gt', label: 'Greater than' },
+    { value: 'gte', label: 'Greater than or equal to' },
+  ]
+
 
   constructor(
     private _http: HttpClient,
@@ -60,6 +72,30 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.sortObj?.direction,
       this.filterObj
     )
+  }
+
+  filterUser() {
+    if (this.filterTimeoutRef) clearTimeout(this.filterTimeoutRef);
+    this.filterTimeoutRef = setTimeout(() => {
+      if (this.filterObj?.field && this.filterObj?.operator && this.filterObj?.value) {
+        this.getAllUsers(
+          0,
+          25,
+          this.sortObj?.active,
+          this.sortObj?.direction,
+          this.filterObj
+        );
+      }
+    }, 300);
+  }
+
+  clearFilter() {
+    this.filterObj = {
+      field: null,
+      operator: null,
+      value: null
+    };
+    this.getAllUsers(0, 25, this.sortObj?.active, this.sortObj?.direction, this.filterObj);
   }
 
 

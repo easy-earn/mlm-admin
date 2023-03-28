@@ -29,6 +29,7 @@ export class UserService {
     return this._httpClient.get<ApiResponse<any>>(`${api}/admin/users`, { params }).pipe(catchError(error => of(null)))
   }
 
+  // Not In Use (Instead of calcualte fresh count from data, we are using child_count saved in user table)
   getRewardedUser(maxCount: any = null) {
     const params: any = {};
     if (maxCount) {

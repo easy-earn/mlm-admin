@@ -2,6 +2,27 @@
   <mat-card class="white-card px-[0px] pb-0 overflow-hidden custom-card">
     <mat-card-header class="flex items-center justify-between px-[10px] pb-[15px]">
       <div mat-card-title class="mb-0">Users</div>
+      <div class="flex items-center justify-center">
+        <mat-form-field appearance="outline"
+          class="compact-input mr-[10px] no-error-spacing white-theme h-[30px] text-sm">
+          <mat-select placeholder="Field" [(ngModel)]="filterObj.field" (ngModelChange)="filterUser()">
+            <mat-option *ngFor="let field of searchFields" [value]="field">{{field}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline"
+          class="compact-input mr-[10px] no-error-spacing white-theme h-[30px] text-sm">
+          <mat-select placeholder="Matcher" [(ngModel)]="filterObj.operator" (ngModelChange)="filterUser()">
+            <mat-option *ngFor="let operator of operators" [value]="operator.value">{{operator.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="form-group mb-0">
+          <input class="form-control min-h-0 h-[30px] text-sm text-black placeholder:text-slate-300" type="text"
+            placeholder="Value" [(ngModel)]="filterObj.value" (ngModelChange)="filterUser()" />
+        </div>
+        <button mat-flat-button type="button" color="primary"
+          class="text-white min-h-0 h-[30px] flex items-center px-[5px] min-w-0 ml-[10px]" (click)="clearFilter()">
+          Clear</button>
+      </div>
       <!-- <button mat-raised-button color="primary" class="text-white flex items-center" (click)="openDialog()">
         <mat-icon>add</mat-icon>
         <span>Create Account</span>
@@ -23,6 +44,22 @@
             <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Phone Number</th>
             <td mat-cell *matCellDef="let user" class="whitespace-nowrap	"> {{user.phone_number}} </td>
           </ng-container>
+
+          <ng-container matColumnDef="account_balance">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Balance</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
+              ₹ {{user.account_balance}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="plan_amount">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Plan</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
+              <span *ngIf="user?.transaction?.plan?.amount">₹ {{user?.transaction?.plan?.amount}}</span>
+              <span *ngIf="!user?.transaction?.plan?.amount">-</span>
+            </td>
+          </ng-container>
+
           <ng-container matColumnDef="is_verified">
             <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Email Verified</th>
             <td mat-cell *matCellDef="let user" class="whitespace-nowrap	">
@@ -47,21 +84,6 @@
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="account_balance">
-            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Balance</th>
-            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
-              ₹ {{user.account_balance}}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="plan_amount">
-            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Plan</th>
-            <td mat-cell *matCellDef="let user" class="whitespace-nowrap">
-              <span *ngIf="user?.transaction?.plan?.amount">₹ {{user?.transaction?.plan?.amount}}</span>
-              <span *ngIf="!user?.transaction?.plan?.amount">-</span>
-            </td>
-          </ng-container>
-
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Status</th>
             <td mat-cell *matCellDef="let user" class="whitespace-nowrap	">
@@ -75,6 +97,16 @@
           <ng-container matColumnDef="referral_code">
             <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Referral Code</th>
             <td mat-cell *matCellDef="let user" class="whitespace-nowrap	"> {{user.referral_code}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="child_count">
+            <th mat-header-cell *matHeaderCellDef class="whitespace-nowrap"> Children</th>
+            <td mat-cell *matCellDef="let user" class="whitespace-nowrap text-center">
+              <span *ngIf="user.child_count != 0"
+                class="bg-green-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full  text-green-600">{{user.child_count}}</span>
+              <span *ngIf="user.child_count == 0"
+                class="bg-red-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full  text-red-600">{{user.child_count}}</span>
+            </td>
           </ng-container>
 
           <!-- <ng-container matColumnDef="actions" stickyEnd="true">
