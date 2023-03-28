@@ -157,4 +157,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
+  updateUserStatus(user: any, status: any) {
+    status = status ? 1 : 0;
+    this.userService.updateUserStatus(user.user_id, status).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+      console.log('response', response);
+      if (response) {
+        this.snackbarService.showSuccess("Status updated successfully.");
+      }
+    });
+  }
+
 }

@@ -25,6 +25,7 @@ import { SearchPipe } from './pipes/search.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderService } from './services/loader.service';
 import { ConfirmationModule } from './module/confirmation/confirmation.module';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 const modules = [
@@ -47,7 +48,8 @@ const modules = [
   MatPaginatorModule,
   MatTableModule,
   MatProgressSpinnerModule,
-  ConfirmationModule
+  ConfirmationModule,
+  MatSlideToggleModule
 ]
 
 const components = [

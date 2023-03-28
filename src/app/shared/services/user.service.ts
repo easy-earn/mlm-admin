@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, of } from 'rxjs';
+import { BehaviorSubject, catchError, of, takeUntil } from 'rxjs';
 import { Constant } from '../constants/app.constant';
 import { ApiResponse } from '../types/api.types';
 import { UtilityService } from './utility.service';
@@ -58,8 +58,11 @@ export class UserService {
     return this._httpClient.post<ApiResponse<any>>(`${api}/admin/verify-user-purchase`, { transaction_id: transactionId }).pipe(catchError(error => of(null)))
   }
 
-
   withdrawBalance(user_id: string) {
     return this._httpClient.post<ApiResponse<any>>(`${api}/admin/withdraw-balance`, { user_id })
+  }
+
+  updateUserStatus(user_id: string, status: 0 | 1 = 1) {
+    return this._httpClient.put<ApiResponse<any>>(`${api}/admin/update-status/${user_id}`, { status: status });
   }
 }
