@@ -1,0 +1,104 @@
+.compact-input {
+  font-family: inherit;
+
+  &.no-error-spacing {
+    .mat-form-field-wrapper {
+      padding-bottom: 0px;
+    }
+  }
+
+  &.mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0px;
+  }
+
+  // &.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline-thick {
+  //   opacity: 0 !important;
+  // }
+
+  &.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start,
+  &.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,
+  &.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap {
+    border-width: 1px;
+  }
+
+  &.mat-focused.mat-form-field-appearance-outline.mat-error .mat-form-field-outline-start,
+  &.mat-focused.mat-form-field-appearance-outline.mat-error .mat-form-field-outline-end,
+  &.mat-form-field-appearance-outline.mat-error .mat-form-field-outline-start,
+  &.mat-form-field-appearance-outline.mat-error .mat-form-field-outline-end {
+    border-color: var(--mlm-error);
+  }
+
+  &.mat-form-field-appearance-outline .mat-form-field-outline-start,
+  &.mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-color: var(--mlm-border-color);
+  }
+
+  &.mat-focused.mat-form-field-appearance-outline .mat-form-field-outline-start,
+  &.mat-focused.mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-color: var(--mlm-primary);
+  }
+
+  .mat-form-field-infix {
+    border-top: none;
+  }
+
+  &.h-\[30px\] {
+    .mat-form-field-infix {
+      padding: 6px 0px;
+    }
+  }
+
+  &.mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+    transform: none;
+  }
+
+  &.mat-form-field-appearance-outline .mat-form-field-outline {
+    top: 0px;
+  }
+
+  &.mat-form-field-appearance-outline .mat-form-field-flex {
+    margin-top: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .mat-select-value {
+    display: flex;
+    align-items: center;
+  }
+
+  .mat-form-field-outline-gap {
+    width: 0px !important;
+  }
+
+  .mat-form-field-label {
+    margin: 0px;
+
+    mat-label {
+      color: var(--mlm-primary);
+    }
+  }
+
+  &.white-theme {
+    .mat-input-element::placeholder {
+      color: var(--mlm-slate-400);
+    }
+
+    .mat-form-field-label {
+      margin: 0px;
+
+      mat-label {
+        color: var(--mlm-primary-on);
+      }
+    }
+
+    .mat-select-value {
+      color: var(--mlm-primary-on);
+    }
+
+    .mat-select-placeholder {
+      color: var(--mlm-slate-400);
+    }
+  }
+
+}
