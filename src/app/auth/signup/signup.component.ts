@@ -71,7 +71,11 @@ export class SignupComponent implements OnInit {
               const { access_token, userDoc } = result;
               this.authService.adminAccessToken = access_token;
               this.authService.user = userDoc;
-              this.isSignupDone = true;
+              // BYPASS_OTP : <uncomment it>
+              // this.isSignupDone = true;
+
+              // BYPASS_OTP : <remove it>
+              this.router.navigate([`/auth/login`]);
             }
           }
           this.loader.close();
@@ -94,40 +98,42 @@ export class SignupComponent implements OnInit {
   }
 
   resendOTP() {
-    this.loader.open();
-    this.authService.resendOTP(this.form.email).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-      if (response) {
-        const { message } = response;
-        this._snackbarService.showInfo(message);
-      }
-      this.loader.close();
-    }, error => {
-      console.log('error', error);
-      error?.error?.message && this._snackbarService.showError(error?.error?.message, '', 6);
-      this.loader.close();
-    });
+    // BYPASS_OTP : <uncomment it>
+    // this.loader.open();
+    // this.authService.resendOTP(this.form.email).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+    //   if (response) {
+    //     const { message } = response;
+    //     this._snackbarService.showInfo(message);
+    //   }
+    //   this.loader.close();
+    // }, error => {
+    //   console.log('error', error);
+    //   error?.error?.message && this._snackbarService.showError(error?.error?.message, '', 6);
+    //   this.loader.close();
+    // });
   }
 
   verifyOTP() {
-    if (this.verifyForm.otp && this.verifyForm.otp != null && this.verifyForm.otp != undefined && this.verifyForm.otp != '') {
-      this.loader.open();
-      this.authService.verifyOTP(this.form.email, this.verifyForm.otp).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-        if (response) {
-          const { message } = response;
-          this.loader.close();
-          if (this.form.package && this.form.package.plan_id) {
-            this.router.navigate([`/dashboard/plans?planId=${this.form.package.plan_id}`]);
-          } else {
-            this.router.navigate([`/dashboard/home`]);
-          }
-          this._snackbarService.showSuccess(message);
-        }
-      }, error => {
-        console.log('error', error);
-        error?.error?.message && this._snackbarService.showError(error?.error?.message, '', 6);
-        this.loader.close();
-      });
-    }
+    // BYPASS_OTP : <uncomment it>
+    // if (this.verifyForm.otp && this.verifyForm.otp != null && this.verifyForm.otp != undefined && this.verifyForm.otp != '') {
+    //   this.loader.open();
+    //   this.authService.verifyOTP(this.form.email, this.verifyForm.otp).pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+    //     if (response) {
+    //       const { message } = response;
+    //       this.loader.close();
+    //       if (this.form.package && this.form.package.plan_id) {
+    //         this.router.navigate([`/dashboard/plans?planId=${this.form.package.plan_id}`]);
+    //       } else {
+    //         this.router.navigate([`/dashboard/home`]);
+    //       }
+    //       this._snackbarService.showSuccess(message);
+    //     }
+    //   }, error => {
+    //     console.log('error', error);
+    //     error?.error?.message && this._snackbarService.showError(error?.error?.message, '', 6);
+    //     this.loader.close();
+    //   });
+    // }
   }
 
 }
