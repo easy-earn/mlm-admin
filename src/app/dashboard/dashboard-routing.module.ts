@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { WithdrawRequestComponent } from './withdraw-request/withdraw-request.component';
+import { WithdrawHistoryComponent } from './withdraw-history/withdraw-history.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: "withdraw-request",
         component: WithdrawRequestComponent
+      },
+      {
+        path: "withdraw-history",
+        component: WithdrawHistoryComponent
       },
       {
         path: "profile",

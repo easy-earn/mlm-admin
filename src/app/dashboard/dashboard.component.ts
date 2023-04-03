@@ -17,7 +17,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   navLinks: Array<any> = [
     { routerLink: '/dashboard/home', label: 'Users' },
     { routerLink: '/dashboard/transaction', label: 'Transactions' },
-    { routerLink: '/dashboard/withdraw-request', label: 'Withdraw Requests' }
+    { routerLink: '/dashboard/withdraw-request', label: 'Withdraw Requests' },
+    { routerLink: '/dashboard/withdraw-history', label: 'Withdraw History' }
   ]
 
   constructor(private _router: Router, private authService: AuthService, private _fuseMediaWatcherService: FuseMediaWatcherService) {

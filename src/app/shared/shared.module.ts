@@ -26,6 +26,8 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderService } from './services/loader.service';
 import { ConfirmationModule } from './module/confirmation/confirmation.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { WithdrawHistoryService } from './services/withdraw-history.service';
+import { MatSortModule } from '@angular/material/sort';
 
 
 const modules = [
@@ -49,7 +51,8 @@ const modules = [
   MatTableModule,
   MatProgressSpinnerModule,
   ConfirmationModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatSortModule
 ]
 
 const components = [
@@ -72,6 +75,6 @@ const pipes = [
     ...modules,
     ...pipes
   ],
-  providers: [SnackbarService, UtilityService, FuseMediaWatcherService, LoaderService]
+  providers: [SnackbarService, UtilityService, FuseMediaWatcherService, LoaderService, WithdrawHistoryService]
 })
 export class SharedModule { }

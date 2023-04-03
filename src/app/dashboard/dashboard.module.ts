@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { WithdrawRequestComponent } from './withdraw-request/withdraw-request.component';
+import { WithdrawHistoryComponent } from './withdraw-history/withdraw-history.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { WithdrawRequestComponent } from './withdraw-request/withdraw-request.co
     HomeComponent,
     ProfileComponent,
     TransactionComponent,
-    WithdrawRequestComponent
+    WithdrawRequestComponent,
+    WithdrawHistoryComponent
   ],
   imports: [
     CommonModule,
