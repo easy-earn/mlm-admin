@@ -36,13 +36,13 @@
                   <ng-container *ngTemplateOutlet="errorTemplate; context: { key: '/password' }"></ng-container>
                 </div>
                 <!-- // BYPASS_OTP : <uncomment it> -->
-                <!-- <div class="form-group flex items-center">
+                <div class="form-group flex items-center">
                   <span class="text-sm cursor-pointer ml-[3px]">
                     Forgot Password?
                     <a [routerLink]="['/auth/forgot-password']" class="text-primary font-bold">
                       Recover password</a>
                   </span>
-                </div> -->
+                </div>
                 <div class="form-group flex items-center justify-between mt-[35px]">
                   <button mat-flat-button color="primary" class="px-[35px] py-[7px]" (click)="doLogin(form)">
                     Login Now
